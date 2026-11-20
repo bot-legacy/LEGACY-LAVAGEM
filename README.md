@@ -52,3 +52,5 @@ Em Configurações há o botão **Executar testes** (as seis regras e a venda).
 - O servidor refaz todos os cálculos e confere o cargo no Discord a cada login (sessão de 12 h). Segredos ficam só nas variáveis do Cloudflare, nunca no código.
 - Quem sai do cargo só perde o acesso quando a sessão expirar (até 12 h).
 - Dados antigos do navegador (versão 1) não migram sozinhos: use o backup JSON antigo em Configurações → Importar (Líder).
+
+ 

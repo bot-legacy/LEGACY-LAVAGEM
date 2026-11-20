@@ -37,6 +37,12 @@ function build(b,prods){const resp=String(b.resp||'').trim().slice(0,60),obs=Str
   if(!prods.some(x=>x.n===b.produto))return'Produto inválido.';const c=calcVenda(q,u);
   return{tipo:'venda',resp,produto:b.produto,qtd:q,unit:u,bruto:c.total,maquina:0,lavador:0,legacy:c.legacy,vendedor:c.vendedor,liquido:c.vendedor,cat:'',obs,det:[[esc(b.produto)+' ('+q+' × '+fmt(u)+')','100%',c.total],['Parte do vendedor','50%',c.vendedor],['Parte LEGACY','50%',c.legacy]]}}
  return'Tipo inválido.'}
+async function onRequest({request:r,env,waitUntil}){
+ try{
+  const falta=['DB','SESSION_SECRET','DISCORD_CLIENT_ID','DISCORD_CLIENT_SECRET'].filter(k=>!env[k]);
+  if(falta.length)return J({erro:'config',falta},500);
+  await init(env);return await rota(r,env,waitUntil)}
+ catch(e){return J({erro:'Erro interno do servidor.'},500)}}
 async function hook(env,op,O){const lav=op.tipo==='lavagem',fora=op.cat==='fora',f=(name,value,inline=true)=>({name,value:String(value).slice(0,1000)||'—',inline});
  const fields=lav?[f('👤 Quem lavou',op.resp),f('🏷️ Categoria',fora?'Pessoa de fora':'Membro LEGACY'),f('🌾 Pagou o farm',op.farm==='sim'?'Sim':'Não'),...(fora?[f('🤝 Parceria',op.parc==='sim'?'Sim':'Não')]:[]),
   f('💵 Valor bruto','**'+fmt(op.bruto)+'**'),f(`⚙️ Máquina (${op.pm}%)`,fmt(op.maquina)),...(fora?[f(`🧼 Lavador (${op.pl}%)`,fmt(op.lavador))]:[]),f(`👑 LEGACY (${op.pg}%)`,fmt(op.legacy)),
@@ -47,12 +53,6 @@ async function hook(env,op,O){const lav=op.tipo==='lavagem',fora=op.cat==='fora'
  await Promise.all((lav?[env.WEBHOOK_LAV_1,env.WEBHOOK_LAV_2]:[env.WEBHOOK_VENDAS]).filter(Boolean).map(u=>fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body}).catch(()=>{})))}
 async function onRequest({request:r,env,waitUntil}){
  try{if(!env.DB||!env.SESSION_SECRET||!env.DISCORD_CLIENT_ID||!env.DISCORD_CLIENT_SECRET)return J({erro:'config'},500);await init(env);return await rota(r,env,waitUntil)}
- catch(e){return J({erro:'Erro interno do servidor.'},500)}}
-async function onRequest({request:r,env,waitUntil}){
- try{
-  const falta=['DB','SESSION_SECRET','DISCORD_CLIENT_ID','DISCORD_CLIENT_SECRET'].filter(k=>!env[k]);
-  if(falta.length)return J({erro:'config',falta},500);
-  await init(env);return await rota(r,env,waitUntil)}
  catch(e){return J({erro:'Erro interno do servidor.'},500)}}
 async function rota(r,env,waitUntil){const u=new URL(r.url),p=u.pathname,m=r.method,O=u.origin,RED=O+'/api/callback';
  if(p==='/api/login'){const st=crypto.randomUUID();return new Response(null,{status:302,headers:{Location:'https://discord.com/oauth2/authorize?'+new URLSearchParams({client_id:env.DISCORD_CLIENT_ID,response_type:'code',redirect_uri:RED,scope:'identify guilds.members.read',state:st,prompt:'consent'}),'Set-Cookie':setc('st',st,600)}})}

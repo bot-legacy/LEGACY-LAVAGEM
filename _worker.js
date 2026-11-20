@@ -48,6 +48,12 @@ async function hook(env,op,O){const lav=op.tipo==='lavagem',fora=op.cat==='fora'
 async function onRequest({request:r,env,waitUntil}){
  try{if(!env.DB||!env.SESSION_SECRET||!env.DISCORD_CLIENT_ID||!env.DISCORD_CLIENT_SECRET)return J({erro:'config'},500);await init(env);return await rota(r,env,waitUntil)}
  catch(e){return J({erro:'Erro interno do servidor.'},500)}}
+async function onRequest({request:r,env,waitUntil}){
+ try{
+  const falta=['DB','SESSION_SECRET','DISCORD_CLIENT_ID','DISCORD_CLIENT_SECRET'].filter(k=>!env[k]);
+  if(falta.length)return J({erro:'config',falta},500);
+  await init(env);return await rota(r,env,waitUntil)}
+ catch(e){return J({erro:'Erro interno do servidor.'},500)}}
 async function rota(r,env,waitUntil){const u=new URL(r.url),p=u.pathname,m=r.method,O=u.origin,RED=O+'/api/callback';
  if(p==='/api/login'){const st=crypto.randomUUID();return new Response(null,{status:302,headers:{Location:'https://discord.com/oauth2/authorize?'+new URLSearchParams({client_id:env.DISCORD_CLIENT_ID,response_type:'code',redirect_uri:RED,scope:'identify guilds.members.read',state:st,prompt:'consent'}),'Set-Cookie':setc('st',st,600)}})}
  if(p==='/api/callback'){const code=u.searchParams.get('code'),st=cookie(r,'st');if(!code||!st||u.searchParams.get('state')!==st)return go(O,'login');

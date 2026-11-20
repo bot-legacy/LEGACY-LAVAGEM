@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LEGACY LAVAGEM</title><link rel="icon" href="coroa.webp"><link rel="stylesheet" href="style.css"></head><body>
+<aside><div class="logo"><img src="lgc.webp" alt="LEGACY" onerror="this.style.display='none'"><small>LAVAGEM · Cidade Brava</small></div>
+<nav><a href="#dash">▣ Dashboard</a><a href="#lav">◈ Nova Lavagem</a><a href="#ven">◆ Venda de Itens</a><a href="#his">☰ Histórico</a><a href="#rel">▤ Relatórios</a><a href="#cfg">⚙ Configurações</a></nav>
+<div id="eu"><a class="btn" href="/api/login">ENTRAR COM DISCORD</a></div><p class="warn">Dados salvos na nuvem (Cloudflare) e compartilhados. O acesso é liberado pelo cargo no Discord da LEGACY. Faça backups em Configurações.</p></aside>
+<main><header class="hero"><img src="legacy.webp" alt="LEGACY" onerror="this.style.display='none'"><div><b>LAVAGEM</b><small>CIDADE BRAVA · GTA RP</small></div></header>
+<section id="dash"><h1>Dashboard</h1>
+<label>Período <select id="d-f"><option value="todos">Todo o período</option><option value="hoje">Hoje</option><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="mes">Mês atual</option></select></label>
+<div class="cards" id="d-cards"></div>
+<div class="grid2"><div class="card"><h2>Movimentação por dia</h2><div id="d-chart" class="bars"></div></div><div class="card"><h2>Distribuição do valor movimentado</h2><div id="d-dist"></div></div></div>
+<div class="card"><h2>Últimas movimentações</h2><div class="scroll" id="d-last"></div></div></section>
+
+<section id="lav"><h1>Nova Lavagem</h1>
+<form id="fl" class="card"><div class="grid2">
+<label>Nome de quem está lavando<input id="l-nome" maxlength="60" required></label>
+<label>Valor bruto<input id="l-valor" inputmode="numeric" placeholder="R$0,00" autocomplete="off" required></label>
+<label>Categoria<select id="l-cat"><option value="membro">Membro LEGACY</option><option value="fora">Pessoa de fora</option></select></label>
+<label>Pagou o farm?<select id="l-farm"><option value="sim">Sim</option><option value="nao">Não</option></select></label>
+<label id="l-parc-w" hidden>Possui parceria?<select id="l-parc"><option value="sim">Sim</option><option value="nao">Não</option></select></label>
+<label>Observação<input id="l-obs" maxlength="200"></label></div>
+<div class="btns"><button type="button" id="l-calc">CALCULAR</button><button type="button" id="l-reg" class="red">REGISTRAR OPERAÇÃO</button></div>
+<div id="l-prev"></div></form></section>
+
+<section id="ven"><h1>Venda de Itens</h1>
+<form id="fv" class="card"><div class="grid2">
+<label>Nome do vendedor<input id="v-nome" maxlength="60" required></label>
+<label>Produto<select id="v-prod"></select></label>
+<label>Quantidade<input id="v-qtd" type="number" min="1" step="1" value="1"></label>
+<label>Valor unitário<input id="v-unit" inputmode="numeric" placeholder="R$0,00" autocomplete="off"></label>
+<label>Observação<input id="v-obs" maxlength="200"></label></div>
+<div class="btns"><button type="button" id="v-calc">CALCULAR</button><button type="button" id="v-reg" class="red">REGISTRAR VENDA</button></div>
+<div id="v-prev"></div></form>
+<div class="card" data-min="2"><h2>Produtos</h2><p class="muted">Edite nomes e valores padrão. Registros antigos mantêm o nome usado na época.</p><div id="p-list"></div>
+<div class="btns"><input id="p-novo" placeholder="Novo produto" maxlength="60"><button type="button" id="p-add">ADICIONAR</button></div></div></section>
+
+<section id="his"><h1>Histórico</h1>
+<div class="card filt"><input id="h-q" placeholder="Pesquisar por nome"><select id="h-t"><option value="">Todos os tipos</option><option value="lavagem">Lavagem</option><option value="venda">Venda</option></select><input id="h-d" type="date"><button type="button" id="h-csv">EXPORTAR CSV</button></div>
+<div class="card scroll" id="h-tab"></div></section>
+
+<section id="rel"><h1>Relatórios</h1>
+<div class="cards" id="r-cards"></div>
+<div class="card filt"><select id="r-g"><option value="dia">Diário</option><option value="semana">Semanal</option><option value="mes">Mensal</option></select><button type="button" id="r-csv">EXPORTAR CSV</button></div>
+<div class="card scroll" id="r-tab"></div></section>
+
+<section id="cfg"><h1>Configurações</h1>
+<div class="card"><h2>Backup</h2><div class="btns"><button type="button" id="b-exp" data-min="2">EXPORTAR BACKUP (JSON)</button><label class="btn" data-min="3">IMPORTAR BACKUP<input type="file" id="b-imp" accept=".json" hidden></label><button type="button" id="b-clr" class="red" data-min="3">LIMPAR TODOS OS DADOS</button></div><p class="muted">Importar substitui os dados atuais. Limpar apaga tudo deste navegador.</p></div>
+<div class="card"><h2>Testes de cálculo</h2><button type="button" id="t-run">EXECUTAR TESTES</button><div id="t-out"></div></div></section>
+</main>
+<div id="login" hidden><img src="legacy.webp" alt="LEGACY" onerror="this.style.display='none'"><p>Acesso restrito aos membros da LEGACY</p><a class="btn" href="/api/login">ENTRAR COM DISCORD</a><p id="l-erro"></p></div><dialog id="dlg"></dialog><div id="print"></div>
+<script src="script.js"></script></body></html>

@@ -1,0 +1,9 @@
+{
+  // TROQUE OS 2 VALORES marcados com <<< e salve (Commit). Não mude mais nada.
+  "name": "NOME-DO-SEU-WORKER", // <<< nome do projeto no Cloudflare (é o começo do endereço .workers.dev)
+  "main": "servidor.js",
+  "compatibility_date": "2026-11-01",
+  "keep_vars": true,
+  "assets": { "directory": "./", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
+  "d1_databases": [{ "binding": "DB", "database_name": "legacy-lavagem", "database_id": "COLE-O-ID-DO-BANCO-AQUI" }] // <<< Database ID do D1
+}

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LEGACY LAVAGEM</title><link rel="icon" href="assets/coroa.webp"><link rel="stylesheet" href="style.css"></head><body>
-<aside><div class="logo"><img src="assets/lgc.webp" alt="LEGACY"><small>LAVAGEM · Cidade Brava</small></div>
+<title>LEGACY LAVAGEM</title><link rel="icon" href="coroa.webp"><link rel="stylesheet" href="style.css"></head><body>
+<aside><div class="logo"><img src="lgc.webp" alt="LEGACY" onerror="this.style.display='none'"><small>LAVAGEM · Cidade Brava</small></div>
 <nav><a href="#dash">▣ Dashboard</a><a href="#lav">◈ Nova Lavagem</a><a href="#ven">◆ Venda de Itens</a><a href="#his">☰ Histórico</a><a href="#rel">▤ Relatórios</a><a href="#cfg">⚙ Configurações</a></nav>
-<div id="eu"></div><p class="warn">Dados salvos na nuvem (Cloudflare) e compartilhados. O acesso é liberado pelo cargo no Discord da LEGACY. Faça backups em Configurações.</p></aside>
-<main><header class="hero"><img src="assets/legacy.webp" alt="LEGACY"><div><b>LAVAGEM</b><small>CIDADE BRAVA · GTA RP</small></div></header>
+<div id="eu"><a class="btn" href="/api/login">ENTRAR COM DISCORD</a></div><p class="warn">Dados salvos na nuvem (Cloudflare) e compartilhados. O acesso é liberado pelo cargo no Discord da LEGACY. Faça backups em Configurações.</p></aside>
+<main><header class="hero"><img src="legacy.webp" alt="LEGACY" onerror="this.style.display='none'"><div><b>LAVAGEM</b><small>CIDADE BRAVA · GTA RP</small></div></header>
 <section id="dash"><h1>Dashboard</h1>
 <label>Período <select id="d-f"><option value="todos">Todo o período</option><option value="hoje">Hoje</option><option value="7">Últimos 7 dias</option><option value="30">Últimos 30 dias</option><option value="mes">Mês atual</option></select></label>
 <div class="cards" id="d-cards"></div>
@@ -47,5 +47,5 @@
 <div class="card"><h2>Backup</h2><div class="btns"><button type="button" id="b-exp" data-min="2">EXPORTAR BACKUP (JSON)</button><label class="btn" data-min="3">IMPORTAR BACKUP<input type="file" id="b-imp" accept=".json" hidden></label><button type="button" id="b-clr" class="red" data-min="3">LIMPAR TODOS OS DADOS</button></div><p class="muted">Importar substitui os dados atuais. Limpar apaga tudo deste navegador.</p></div>
 <div class="card"><h2>Testes de cálculo</h2><button type="button" id="t-run">EXECUTAR TESTES</button><div id="t-out"></div></div></section>
 </main>
-<div id="login" hidden><img src="assets/legacy.webp" alt="LEGACY"><p>Acesso restrito aos membros da LEGACY</p><a class="btn" href="/api/login">ENTRAR COM DISCORD</a><p id="l-erro"></p></div><dialog id="dlg"></dialog><div id="print"></div>
+<div id="login" hidden><img src="legacy.webp" alt="LEGACY" onerror="this.style.display='none'"><p>Acesso restrito aos membros da LEGACY</p><a class="btn" href="/api/login">ENTRAR COM DISCORD</a><p id="l-erro"></p></div><dialog id="dlg"></dialog><div id="print"></div>
 <script src="script.js"></script></body></html>

@@ -6,11 +6,11 @@ Painel financeiro da organização LEGACY. Site estático (HTML, CSS e JavaScrip
 - `index.html` — páginas e formulários
 - `style.css` — visual
 - `script.js` — cálculos, dados (localStorage), histórico, relatórios, CSV e backup
-- `functions/api/[[path]].js` — servidor: login Discord, banco D1, webhooks
-- `assets/` — logos e fundo da LEGACY (envie esta pasta junto!)
+- `_worker.js` — servidor: login Discord, banco D1, webhooks
+- `` — logos e fundo da LEGACY (envie esta pasta junto!)
 
 ## Publicar (Cloudflare Pages + GitHub + login Discord)
-O Cloudflare **não aceita arrastar arquivos** quando o site tem servidor (pasta `functions`). Por isso o caminho é GitHub → Cloudflare. Tudo gratuito.
+O Cloudflare **não aceita arrastar arquivos** quando o site tem servidor (arquivo `_worker.js`). Por isso o caminho é GitHub → Cloudflare. Tudo gratuito.
 
 ### Parte 1 — Discord
 1. https://discord.com/developers/applications → **New Application** → nome `LEGACY LAVAGEM` (aplicativo NOVO, separado do bot DragonSYS, para não arriscar o bot atual). Copie o **Application ID**.
@@ -19,7 +19,7 @@ O Cloudflare **não aceita arrastar arquivos** quando o site tem servidor (pasta
 
 ### Parte 2 — GitHub
 1. Crie conta em github.com → **New repository** → nome `legacy-lavagem` → **Private** → Create.
-2. **Uploading an existing file** → arraste TUDO que está dentro da pasta descompactada (`index.html`, `style.css`, `script.js`, pastas `assets` e `functions`) → Commit.
+2. **Uploading an existing file** → **choose your files** e selecione de uma vez TODOS os arquivos da pasta descompactada (são 12, todos soltos na raiz, sem pastas) → Commit. Confira no GitHub se aparecem `_worker.js` e as imagens `.webp`.
 
 ### Parte 3 — Cloudflare
 1. Workers & Pages → Storage & Databases → **D1** → Create database → nome `legacy-lavagem`.
@@ -32,7 +32,7 @@ O Cloudflare **não aceita arrastar arquivos** quando o site tem servidor (pasta
 Para atualizar o site depois: envie os arquivos novos no GitHub e o Cloudflare publica sozinho.
 
 ### Permissões por cargo
-Membro: ver e registrar. Gerente: + excluir registros, editar produtos, exportar backup. Líder: + importar backup e limpar dados. Para mudar, edite `NEED` no topo de `functions/api/[[path]].js`.
+Membro: ver e registrar. Gerente: + excluir registros, editar produtos, exportar backup. Líder: + importar backup e limpar dados. Para mudar, edite `NEED` no topo de `_worker.js`.
 
 ## Regras financeiras (% do valor bruto)
 | Situação | Pagou o farm | Máquina | Lavador | LEGACY | Taxas | Valor final |

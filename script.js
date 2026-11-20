@@ -2,8 +2,8 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const KEY='legacy_financial_v1',NOMES=['Cartão de Ação Nível I','Cartão de Ação Nível II','Cartão de Ação Nível III','Capuz','Algema','Outros itens'];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let db={seq:0,ops:[],produtos:[]},eu=null;
-const api=async(m,p,b)=>{const r=await fetch('/api/'+p,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});const j=await r.json().catch(()=>({}));if(r.status===401){showLogin();throw new Error('login')}if(!r.ok)throw new Error(j.erro||'Erro');return j};
+let db={seq:0,ops:[],produtos:NOMES.map(n=>({n,p:0}))},eu=null;
+const api=async(m,p,b)=>{const r=await fetch('/api/'+p,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});if(!(r.headers.get('content-type')||'').includes('json'))throw new Error('api');const j=await r.json().catch(()=>({}));if(r.status===401){showLogin();throw new Error('login')}if(!r.ok)throw new Error(j.erro||'Erro');return j};
 const fmt=c=>(c/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const dt=t=>new Date(t).toLocaleString('pt-BR');
 const dk=t=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
@@ -95,13 +95,13 @@ $('#b-imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new File
 $('#b-clr').onclick=()=>{if(confirm('Apagar TODOS os dados deste navegador?')&&confirm('Tem certeza? Faça um backup antes. Esta ação é definitiva.')){api('POST','clear').then(recarregar).catch(x=>alert(x.message))}};
 $('#t-run').onclick=()=>{const r=runTests();$('#t-out').innerHTML='<table>'+r.map(x=>`<tr><td>${x[0]}</td><td class="${x[1]?'ok':'bad'}">${x[1]?'OK':'FALHOU: '+JSON.stringify(x[2])+' ≠ '+JSON.stringify(x[3])}</td></tr>`).join('')+'</table><p>'+r.filter(x=>x[1]).length+'/'+r.length+' testes aprovados.</p>'};
 function route(){const h=(location.hash||'#dash').slice(1);const id=$('#'+h)&&$('section#'+h)?h:'dash';$$('section').forEach(s=>s.classList.toggle('on',s.id===id));$$('nav a').forEach(a=>a.classList.toggle('on',a.hash==='#'+id));renderAll()}
-window.addEventListener('hashchange',route);toggles();
+window.addEventListener('hashchange',route);toggles();renderProd();route();
 async function recarregar(){db=await api('GET','state');renderProd();route()}
 function salvarProd(){api('PUT','produtos',db.produtos).then(renderProd).catch(x=>{alert(x.message);recarregar()})}
-function showLogin(e){const q=e||new URLSearchParams(location.search).get('erro');$('#login').hidden=false;$('#l-erro').textContent=({cargo:'Você está no servidor, mas não tem cargo de Membro, Gerente ou Líder.',servidor:'Você não está no servidor Discord da LEGACY.',login:'Não foi possível entrar. Tente de novo.',config:'Configuração do Cloudflare incompleta (veja o README).'})[q]||''}
+function showLogin(e){const q=e||new URLSearchParams(location.search).get('erro');$('#login').hidden=false;$('#l-erro').textContent=({cargo:'Você está no servidor, mas não tem cargo de Membro, Gerente ou Líder.',servidor:'Você não está no servidor Discord da LEGACY.',login:'Não foi possível entrar. Tente de novo.',config:'Configuração do Cloudflare incompleta (veja o README).',api:'O servidor do painel não respondeu: o arquivo _worker.js não foi publicado. Veja o README.',falha:'Falha ao conectar. Atualize a página.'})[q]||''}
 (async()=>{try{eu=await api('GET','me');document.body.dataset.lvl=eu.lvl;
  $('#eu').innerHTML=`<div class="eu">${eu.av?`<img src="https://cdn.discordapp.com/avatars/${eu.id}/${eu.av}.png?size=64" alt="">`:''}<span><b>${esc(eu.nome)}</b><small>${eu.cargo}</small></span><a href="/api/logout">Sair</a></div>`;await recarregar()}
-catch(e){if(e&&e.message==='config')showLogin('config')}})();
+catch(e){if(!e||e.message!=='login')showLogin(e&&(e.message==='config'||e.message==='api')?e.message:'falha')}})();
 
 // Máscara de dinheiro: digita só números -> R$1.000.000,00 (centavos automáticos)
 const brl=c=>'R$'+(c/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});

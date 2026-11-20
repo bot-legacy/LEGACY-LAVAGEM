@@ -29,10 +29,10 @@ dialog{background:var(--card);color:var(--tx);border:1px solid var(--gold);borde
 @media(max-width:800px){body{flex-direction:column}aside{width:100%;height:auto;position:static;padding:12px}nav{display:flex;overflow-x:auto;gap:6px}nav a{white-space:nowrap}.warn{margin-top:10px}main{padding:14px}}
 /* ===== Visual FAC / pixação + toques GTA VI ===== */
 :root{--sun:linear-gradient(90deg,#ff2e63,#ff9a3c,#b44cff)}
-body{background:#08080a url(assets/wall.svg);background-attachment:fixed}
+body{background:#08080a url(wall.svg);background-attachment:fixed}
 body:before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 88% 100%,#ff2e6340,transparent 45%),radial-gradient(circle at 8% 0,#ff9a3c22,transparent 40%),linear-gradient(90deg,#08080aee 25%,#08080a99)}
-body:after{content:"";position:fixed;right:0;bottom:0;width:min(46vw,520px);height:82vh;background:url(assets/leao.webp) no-repeat right bottom/contain;opacity:.17;z-index:-1;pointer-events:none}
-aside{background:linear-gradient(#0d0d10dd,#0d0d10f0),url(assets/cruz.webp) no-repeat 50% 100%/200px;border-right:2px solid #3a1218}
+body:after{content:"";position:fixed;right:0;bottom:0;width:min(46vw,520px);height:82vh;background:url(leao.webp) no-repeat right bottom/contain;opacity:.17;z-index:-1;pointer-events:none}
+aside{background:linear-gradient(#0d0d10dd,#0d0d10f0),url(cruz.webp) no-repeat 50% 100%/200px;border-right:2px solid #3a1218}
 .logo{margin-bottom:18px}.logo img{display:block;width:100%;max-height:150px;object-fit:contain;filter:drop-shadow(0 0 14px #e1061a99)}
 .logo small{text-align:center;color:#ff9a3c;letter-spacing:5px;font-weight:700;margin-top:8px;font-size:11px}
 nav a{font:15px Impact,'Arial Black',sans-serif;text-transform:uppercase;letter-spacing:1.5px}
@@ -42,7 +42,7 @@ nav a.on{border-left-color:#ff2e63;background:linear-gradient(90deg,#8b0f1a77,tr
 .hero b{display:block;font:italic 44px Impact,'Arial Black',sans-serif;letter-spacing:8px;color:#fff;text-shadow:3px 3px 0 #8b0f1a,0 0 20px #ff2e63}
 .hero small{letter-spacing:5px;color:#ff9a3c;font-size:12px;font-weight:700}
 h1{font:italic 32px Impact,'Arial Black',sans-serif;text-transform:uppercase;letter-spacing:2px}
-h1:before{content:"";display:inline-block;width:38px;height:28px;background:url(assets/coroa.webp) no-repeat center/contain;margin-right:10px;vertical-align:-4px}
+h1:before{content:"";display:inline-block;width:38px;height:28px;background:url(coroa.webp) no-repeat center/contain;margin-right:10px;vertical-align:-4px}
 h1:after{width:90px;height:3px;background:var(--sun)}
 h2{font-family:Impact,'Arial Black',sans-serif;font-weight:400;letter-spacing:2px;color:#ff9a3c}
 .card,.cards div{background:#0f0f12e8;border-color:#3a1218;box-shadow:0 6px 22px #000a}
@@ -60,8 +60,9 @@ th{color:#ff9a3c}
 @media(max-width:800px){.hero{margin:-14px -14px 16px;padding:8px 14px}.hero img{height:56px}.hero b{font-size:28px;letter-spacing:4px}body:after{opacity:.1}}
 
 /* Login Discord e permissões */
-#login{position:fixed;inset:0;z-index:50;background:#08080af5 url(assets/wall.svg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:20px}
+#login{position:fixed;inset:0;z-index:50;background:#08080af5 url(wall.svg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:20px}
 #login[hidden]{display:none}#login img{width:min(460px,80vw);filter:drop-shadow(0 0 20px #e1061a99)}
 #login .btn{text-decoration:none;color:#fff;background:#5865f2;border-color:#5865f2;font-size:20px;padding:16px 34px}#l-erro{color:#ff6b6b;max-width:420px}
 .eu{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px}.eu img{width:34px;height:34px;border-radius:50%}.eu small{display:block;color:#ff9a3c}.eu a{margin-left:auto;color:var(--mu)}
 body[data-lvl="1"] [data-min="2"],body[data-lvl="1"] [data-min="3"],body[data-lvl="2"] [data-min="3"]{display:none!important}
+#eu .btn{display:block;text-decoration:none;color:#fff;background:#5865f2;border-color:#5865f2;margin-top:14px;font-size:13px}

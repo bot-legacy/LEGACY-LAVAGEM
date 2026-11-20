@@ -9,5 +9,5 @@ run_worker_first = ["/api/*"]
 
 [[d1_databases]]
 binding = "DB"
-database_name = "legacy-lavagem"
+database_name = "legacy"
 database_id = "733fc5b8-bd3b-4f42-9661-47b12a7cc581"
